@@ -1,5 +1,23 @@
 import random
 # Lista de palabras posibles
+
+def option_menu ():
+    print ("---- Existen 3 niveles de dificultad: ----")
+    print ("")
+    print ("Ingrese 1 si desea jugar en dificultad facil, se le mostraran todas las vocales de la palabra secreta.")
+    print ("")
+    print ("Ingrese 2 si desea jugar en dificultad media, se le mostraran la primer y ultima letra de la palabra secreta.")
+    print ("")
+    print ("Ingrese 3 si desea jugar en dificultad dificil, no se le mostrara ninguna letra de la palabra secreta.")
+    print ("")
+    option = int (input ("Opcion: "))
+    if (option != 1 and option != 2 and option != 3):
+        print ("")
+        print ("---- Se ingreso una opcion inexistente,por favor ingrese una opcion valida. ----")
+        print ("")
+        option_menu ()
+    return option
+
 words = ["python", "programación", "computadora", "código", "desarrollo",
 "inteligencia"]
 
@@ -10,7 +28,7 @@ secret_word = random.choice(words)
 max_fails = 5
 fails = 0
 # Lista para almacenar las letras adivinadas
-guessed_letters = []
+# guessed_letters = []
 
 print("¡Bienvenido al juego de adivinanzas!")
 print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
@@ -19,8 +37,23 @@ word_displayed = "_" * len(secret_word)
 # Mostrarla palabra parcialmente adivinada
 print(f"Palabra: {word_displayed}")
 
+# Opcion 1- facil, 2-media, 3-dificil
+opt = option_menu()
+if opt == 1:
+    guessed_letters = ["a", "e", "i", "o", "u"]
+    print()
+    print ("---- Se agregaron las letras vocales que correspondan. ----")
+    print()
+elif opt == 2:
+    guessed_letters = [secret_word[0], secret_word[-1]]
+    print()
+    print ("---- Se agrego la primer y ultima letra de la palabra secreta. ----")
+    print()
+else:
+    guessed_letters = []
+
 # for i in range(max_attempts):
-while fails != max_fails:
+while fails < max_fails:
      # Pedir al jugador que ingrese una letra
      letter = input("Ingresa una letra: ").lower()
      # Verificar si la letra ya ha sido adivinada
