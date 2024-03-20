@@ -6,7 +6,9 @@ words = ["python", "programación", "computadora", "código", "desarrollo",
 # Elegir una palabra al azar
 secret_word = random.choice(words)
 # Número máximo de intentos permitidos
-max_attempts = 10
+# max_attempts = 10
+max_fails = 5
+fails = 0
 # Lista para almacenar las letras adivinadas
 guessed_letters = []
 
@@ -17,7 +19,8 @@ word_displayed = "_" * len(secret_word)
 # Mostrarla palabra parcialmente adivinada
 print(f"Palabra: {word_displayed}")
 
-for i in range(max_attempts):
+# for i in range(max_attempts):
+while fails != max_fails:
      # Pedir al jugador que ingrese una letra
      letter = input("Ingresa una letra: ").lower()
      # Verificar si la letra ya ha sido adivinada
@@ -25,12 +28,17 @@ for i in range(max_attempts):
          print("Ya has intentado con esa letra. Intenta con otra.")
          continue
      # Agregar la letra a la lista de letras adivinadas
-     guessed_letters.append(letter)
+     # guessed_letters.append(letter)
      # Verificar si la letra está en la palabra secreta
-     if letter != "" and letter in secret_word:
-         print("¡Bien hecho! La letra está en la palabra.")
+     if letter != "":
+        guessed_letters.append(letter)
+        if letter in secret_word:
+             print("¡Bien hecho! La letra está en la palabra.")
+        else:
+             print("Lo siento, la letra no está en la palabra.")
+             fails += 1
      else:
-         print("Lo siento, la letra no está en la palabra.")
+         print ("No se ingreso nada, por favor ingrese un caracter valido.")
      # Mostrar la palabra parcialmente adivinada
      letters = []
      for letter in secret_word:
@@ -45,5 +53,6 @@ for i in range(max_attempts):
          print(f"¡Felicidades! Has adivinado la palabra secreta:  {secret_word}")
          break
 else:
-     print(f"¡Oh no! Has agotado tus {max_attempts} intentos.")
+     # print(f"¡Oh no! Has agotado tus {max_attempts} intentos.")
+     print(f"¡Oh no! Has agotado tus {max_fails} fallos posibles.")
      print(f"La palabra secreta era: {secret_word}")
