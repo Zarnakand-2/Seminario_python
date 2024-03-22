@@ -33,24 +33,39 @@ fails = 0
 print("¡Bienvenido al juego de adivinanzas!")
 print("Estoy pensando en una palabra. ¿Puedes adivinar cuál es?")
 
-word_displayed = "_" * len(secret_word)
-# Mostrarla palabra parcialmente adivinada
-print(f"Palabra: {word_displayed}")
-
 # Opcion 1- facil, 2-media, 3-dificil
+letters = []
 opt = option_menu()
 if opt == 1:
     guessed_letters = ["a", "e", "i", "o", "u"]
+    print('------ Se selcciono la dificultad Facil ------')
+    for letter in secret_word:
+        if letter in guessed_letters:
+            letters.append(letter)
+        else:
+            letters.append("_")
+    word_displayed = "".join(letters)
     print()
     print ("---- Se agregaron las letras vocales que correspondan. ----")
     print()
 elif opt == 2:
     guessed_letters = [secret_word[0], secret_word[-1]]
+    print('------ Se selcciono la dificultad Media ------')
+    for letter in secret_word:
+        if letter in guessed_letters:
+            letters.append(letter)
+        else:
+            letters.append("_")
+    word_displayed = "".join(letters)
     print()
     print ("---- Se agrego la primer y ultima letra de la palabra secreta. ----")
     print()
 else:
     guessed_letters = []
+    word_displayed = "_" * len(secret_word)
+
+# Mostrarla palabra parcialmente adivinada
+print(f"Palabra: {word_displayed}")
 
 # for i in range(max_attempts):
 while fails < max_fails:
@@ -72,6 +87,7 @@ while fails < max_fails:
              fails += 1
      else:
          print ("No se ingreso nada, por favor ingrese un caracter valido.")
+         continue
      # Mostrar la palabra parcialmente adivinada
      letters = []
      for letter in secret_word:
